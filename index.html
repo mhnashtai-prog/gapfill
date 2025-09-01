@@ -22,7 +22,7 @@
     }
     .container {
       width: 100vw;
-      min-height: 97vh;
+      min-height: 96vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -31,9 +31,8 @@
       margin: 0 auto;
     }
     .title {
-      margin-top: 28px;
-      font-size: 2.2rem;
-      letter-spacing: 0.11em;
+      margin-top: 18px;
+      font-size: 2rem;
       color: #fff;
       text-align: center;
       text-transform: uppercase;
@@ -43,26 +42,37 @@
       font-weight: 500;
     }
     .divider {
-      width: 54px;
+      width: 44px;
       height: 2px;
       background: rgba(255,255,255,0.8);
       margin: 0 auto 12px auto;
       border-radius: 2px;
-      opacity: 0.91;
+      opacity: 0.93;
     }
     .carousel-container {
-      width: 96vw;
+      width: 100vw;
       max-width: 650px;
-      min-height: 400px;
+      min-height: 420px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      margin-bottom: 70px;
+      margin-bottom: 60px;
+      margin-top: 8px;
+      position: relative;
+    }
+    .carousel-row {
+      width: 100%;
+      max-width: 650px;
+      display: flex;
+      overflow-x: hidden;
+      min-height: 290px;
+      /* For smooth sliding */
+      transition: transform 0.38s cubic-bezier(0.5, 0, 0.2, 1);
     }
     .slide {
-      width: 100%;
-      min-height: 290px;
+      min-width: 100%;
+      box-sizing: border-box;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -75,9 +85,9 @@
       border-radius: 24px;
       box-shadow: 0 6px 18px -4px rgba(0,0,0,0.085), inset 1px 1px 3px #fff2, inset -1px -1px 4px #0001;
       width: 95%;
-      padding: 18px 16px 12px 16px;
-      font-size: 1.02rem;
-      margin-bottom: 13px;
+      padding: 13px 11px 9px 11px;
+      font-size: 0.97rem;
+      margin-bottom: 11px;
       color: #222;
       font-family: 'Inter', Arial, sans-serif;
       font-weight: 500;
@@ -85,26 +95,25 @@
       line-height: 1.54;
     }
     .highlighted {
-      background: rgba(147,197,96,0.6);
+      background: rgba(147,197,96,0.53);
       color: #181c2e;
-      font-family: inherit;
       border-radius: 6px;
       padding: 0 2px;
-      transition: background 0.23s;
+      transition: background 0.25s;
     }
     .question-box {
       background: rgba(255,255,255,0.95);
       border: 1px solid rgba(255,255,255,0.19);
       border-radius: 19px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.07), inset 1px 1px 2px #fff2;
-      padding: 17px 12px 13px 12px;
+      padding: 13px 7px 8px 7px;
       width: 93%;
       font-family: 'Inter', Arial, sans-serif;
-      margin-bottom: 10px;
+      margin-bottom: 7px;
       text-align: left;
     }
     .question-title {
-      font-size: 1.01em;
+      font-size: 0.98em;
       color: #2a3e66;
       margin-bottom: 10px;
       font-weight: 500;
@@ -122,12 +131,13 @@
       font-size: 0.98em;
       color: #151c33;
       font-weight: 500;
-      padding: 8px 13px;
+      padding: 8px 10px;
       cursor: pointer;
       transition: background 0.17s, border 0.16s;
       outline: none;
       user-select: none;
       font-family: inherit;
+      margin: 0 2px;
     }
     .choice:active, .choice.selected {
       background: #daf5b0;
@@ -135,23 +145,23 @@
       color: #181c2e;
     }
     .feedback {
-      margin-top: 10px;
-      font-size: 0.96em;
+      margin-top: 8px;
+      font-size: 0.97em;
       font-weight: 500;
       color: #c72c2c;
       text-align: center;
       font-family: inherit;
-      min-height: 22px;
+      min-height: 20px;
     }
     /* Footer Styles */
     .footer {
       width: 100vw;
-      max-width: 660px;
+      max-width: 650px;
       margin: 0 auto;
       background: rgba(68,68,68,0.92);
       border-radius: 20px 20px 0 0;
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
       justify-content: space-between;
       position: fixed;
@@ -159,24 +169,25 @@
       left: 50%;
       transform: translateX(-50%);
       box-shadow: 0 2px 14px 0 #2226;
-      font-size: 1.12rem;
+      font-size: 1.08rem;
       color: #fff;
       z-index: 100;
       font-family: 'Inter', Arial, sans-serif;
-      padding: 7px 15px 7px 15px;
+      padding: 7px 12px 7px 12px;
     }
-    .footer .score { font-size: 1.05em; color: #e6f6dc; }
+    .footer .score { color: #e6f6dc; font-size: 0.98em; }
     .footer .footer-btn {
       background: #93C560;
       color: #fff;
       border: none;
-      border-radius: 14px;
-      font-size: 0.97em;
+      border-radius: 13px;
+      font-size: 0.99em;
       font-weight: 500;
-      padding: 6px 15px;
+      padding: 6px 11px;
       cursor: pointer;
-      margin: 0 2px;
-      transition: background 0.16s;
+      margin: 0 1px;
+      transition: background 0.13s;
+      min-width: 65px;
     }
     .footer .footer-btn:active { background: #bfd58e; }
     .footer .footer-btn:disabled {
@@ -185,12 +196,64 @@
       cursor: default;
       opacity: 0.72;
     }
-    @media (max-width: 600px) {
-      .container { min-height: 93vh; }
+    /* Carousel slider bar */
+    .slider-bar-wrapper {
+      width: 90vw;
+      max-width: 420px;
+      margin: 8px auto 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 24px;
+      position: relative;
+      touch-action: pan-x;
+    }
+    .custom-slider {
+      position: relative;
+      width: 80vw;
+      max-width: 390px;
+      height: 8px;
+      background: linear-gradient(90deg, 
+        rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 100%);
+      border-radius: 8px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.12), 0 1px 2px rgba(255,255,255,0.16);
+      display: flex;
+      align-items: center;
+    }
+    .slider-thumb {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(145deg, 
+        rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 50%, rgba(240,240,240,0.9) 100%);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      cursor: grab;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.13);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      border: 1px solid #e6e7ea;
+      transition: left 0.2s;
+    }
+    .slider-labels {
+      position: absolute;
+      width: 100%;
+      top: 25px;
+      display: flex; justify-content: space-between; font-size: 0.89em; color: #fff; font-family: 'Inter', sans-serif;
+      padding: 0 2px;
+    }
+    @media (max-width: 700px) {
       .carousel-container { max-width: 99vw; }
-      .slide { min-height: 230px; padding-top: 0px; }
-      .text-box, .question-box { font-size: 0.96rem; }
-      .footer { font-size: 0.97rem; padding: 6px 9px; }
+      .carousel-row { min-height: 190px; }
+      .slide { padding-top: 0px; }
+      .text-box, .question-box { font-size: 0.93rem; }
+      .footer { font-size: 0.94rem; padding: 6px 4px; }
+      .slider-bar-wrapper { width: 95vw; }
+      .custom-slider { max-width: 96vw; }
     }
   </style>
 </head>
@@ -199,26 +262,148 @@
     <div class="title">There's no stopping her!</div>
     <div class="divider"></div>
     <div class="carousel-container">
-      <div class="slide">
-        <div class="text-box" id="text-0">
-          Noreen Hannington, a sixty-three-year-old grandmother of five, arrives at the Tyre and Wheel Company in North London at 8 a.m. every morning. She puts on a greasy apron, rolls up her sleeves and gets ready for the day's work.<br>
-          The first customer pulls up in an old van. It has a flat tyre and the driver was lucky to make it to the garage. Noreen puts on her rubber gloves and gets down to work. She casually pulls off the wheel, swings it onto the work bench with one hand and takes it apart. ‘There’s your problem, sir,’ she announces, pointing at a tiny hole in the tyre. Right now, he couldn’t care less about that, since <span id="ref-0" class="">what he feels is more serious: a fast-decreasing sense of his own worth.</span> At least his mates haven’t come to witness him being rescued by a sweet-faced granny!
-        </div>
-        <div class="question-box">
-          <div class="question-title">How does the van driver feel after getting help from Noreen?</div>
-          <div class="choices">
-            <div class="choice" data-answer="A">A. Impressed by the way she works</div>
-            <div class="choice" data-answer="B">B. Embarrassed that he needed it</div>
-            <div class="choice" data-answer="C">C. Relieved at finding it in time</div>
-            <div class="choice" data-answer="D">D. Unconvinced by her advice</div>
+      <div class="slider-bar-wrapper">
+        <div class="custom-slider" id="customSlider">
+          <div class="slider-thumb" id="sliderThumb"></div>
+          <div class="slider-labels">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
           </div>
-          <div class="feedback" id="feedback-0"></div>
         </div>
       </div>
-      <!-- Repeat .slide for questions 2-8, each with a relevant <span id="ref-N"> in text -->
+      <div class="carousel-row" id="carousel-row">
+        <!-- SLIDE 1 -->
+        <div class="slide">
+          <div class="text-box" id="text-0">
+            Noreen Hannington, a sixty-three-year-old grandmother of five, arrives at the Tyre and Wheel Company in North London at 8 a.m. every morning. She puts on a greasy apron, rolls up her sleeves and gets ready for the day's work.<br>
+            The first customer pulls up in an old van. It has a flat tyre and the driver was lucky to make it to the garage. Noreen puts on her rubber gloves and gets down to work. She casually pulls off the wheel, swings it onto the work bench with one hand and takes it apart. ‘There’s your problem, sir,’ she announces, pointing at a tiny hole in the tyre. Right now, he couldn’t care less about that, since <span id="ref-0" class="">what he feels is more serious: a fast-decreasing sense of his own worth.</span> At least his mates haven’t come to witness him being rescued by a sweet-faced granny!
+          </div>
+          <div class="question-box">
+            <div class="question-title">How does the van driver feel after getting help from Noreen?</div>
+            <div class="choices">
+              <div class="choice" data-answer="A">A. Impressed by the way she works</div>
+              <div class="choice" data-answer="B">B. Embarrassed that he needed it</div>
+              <div class="choice" data-answer="C">C. Relieved at finding it in time</div>
+              <div class="choice" data-answer="D">D. Unconvinced by her advice</div>
+            </div>
+            <div class="feedback" id="feedback-0"></div>
+          </div>
+        </div>
+        <!-- SLIDE 2 -->
+        <div class="slide">
+          <div class="text-box" id="text-1">
+            Why is Noreen in this line of work, anyway? It’s a family business and when Noreen’s husband died, she decided to keep it going for her two sons, Bill and Fred, then aged only seventeen and fifteen. Before that, her husband had let her watch what went on in the garage, but she had never been allowed to lift a finger. Initially, she doubted her ability to make a go of it, but somehow she managed, and although the boys are now grown up, has never got round to handing over.
+          </div>
+          <div class="question-box">
+            <div class="question-title">Why did Noreen take over the running of the business?</div>
+            <div class="choices">
+              <div class="choice" data-answer="A">A. To fulfil a promise to her husband</div>
+              <div class="choice" data-answer="B">B. To stop her sons fighting over it</div>
+              <div class="choice" data-answer="C">C. To make sure it stayed in the family</div>
+              <div class="choice" data-answer="D">D. To prove that she could manage it</div>
+            </div>
+            <div class="feedback" id="feedback-1"></div>
+          </div>
+        </div>
+        <!-- SLIDE 3 -->
+        <div class="slide">
+          <div class="text-box" id="text-2">
+            Now the business has expanded to include not only the sons but daughters-in-law, too. With Noreen in charge, it all runs smoothly. ‘Bill handles anything mechanical. Fred does electrical repairs, while I fix flat tyres and anything else to do with wheels.’ She waves at the new computer: ‘I also do the accounts. They keep on at me to think modern, but we don’t need this.’ Bill jokes: ‘We don’t need you, but you’re still here!’
+          </div>
+          <div class="question-box">
+            <div class="question-title">‘Keep on at’ in line 34 describes a way of:</div>
+            <div class="choices">
+              <div class="choice" data-answer="A">A. Trying to make someone laugh</div>
+              <div class="choice" data-answer="B">B. Trying to accept something</div>
+              <div class="choice" data-answer="C">C. Trying to convince someone</div>
+              <div class="choice" data-answer="D">D. Trying to make something easier</div>
+            </div>
+            <div class="feedback" id="feedback-2"></div>
+          </div>
+        </div>
+        <!-- SLIDE 4 -->
+        <div class="slide">
+          <div class="text-box" id="text-3">
+            Noreen is indeed still around, lifting well over twelve kilogrammes in weight up to twenty times a day, which is rather surprising, to say the least. As Bill says, ‘Tyre changing’s hard and she shouldn’t be doing it.’ Noreen pulls a face and replies, ‘I’ll stop when I’m eighty-five. Anyway, it was far worse in the old days, when there was less equipment.’ ‘And before that, you were repairing the horses and carts,’ jokes Bill. We all laugh at that one.
+         </div>
+         <div class="question-box">
+            <div class="question-title">The writer finds it strange that:</div>
+            <div class="choices">
+              <div class="choice" data-answer="A">A. Bill allows his mother to work at her age.</div>
+              <div class="choice" data-answer="B">B. Noreen knows exactly when she will retire.</div>
+              <div class="choice" data-answer="C">C. Bill doesn’t find a way to help his mother.</div>
+              <div class="choice" data-answer="D">D. Noreen does a job that is unsuitable for her.</div>
+            </div>
+            <div class="feedback" id="feedback-3"></div>
+          </div>
+        </div>
+        <!-- SLIDE 5 -->
+        <div class="slide">
+          <div class="text-box" id="text-4">
+            Suddenly it all becomes obvious to me – these friendly jokes create an environment that Noreen loves and, despite her advanced age, she wants to stick it out, even if the work is hard at times. So much so, that on the rare occasions when she does go away, she can’t wait to return. ‘I have just had a wonderful holiday on board a cruise ship. Going to sea made sure I couldn’t come running back to the garage after a few hours! But walking back into the garage meant coming home to me,’ she says fondly.
+          </div>
+          <div class="question-box">
+            <div class="question-title">Why, in the writer’s opinion, does Noreen want to carry on working at the garage?</div>
+            <div class="choices">
+              <div class="choice" data-answer="A">A. She feels that working keeps her young.</div>
+              <div class="choice" data-answer="B">B. She enjoys the working atmosphere.</div>
+              <div class="choice" data-answer="C">C. She feels genuinely interested in the work.</div>
+              <div class="choice" data-answer="D">D. She looks forward to more expensive holidays.</div>
+            </div>
+            <div class="feedback" id="feedback-4"></div>
+          </div>
+        </div>
+        <!-- SLIDE 6 -->
+        <div class="slide">
+          <div class="text-box" id="text-5">
+            She stops talking for a moment to check the drinks machine. ‘It’s out of tea,’ she shouts. Everybody sighs; on her first day back at work, the boss is making her presence felt.
+          </div>
+          <div class="question-box">
+            <div class="question-title">Why do Noreen’s family sigh when she mentions the problem with the drinks machine?</div>
+            <div class="choices">
+              <div class="choice" data-answer="A">A. They don’t feel responsible for it.</div>
+              <div class="choice" data-answer="B">B. They wish they had noticed it first.</div>
+              <div class="choice" data-answer="C">C. They think she’s asking them to do it.</div>
+              <div class="choice" data-answer="D">D. They feel that she is being unreasonable.</div>
+            </div>
+            <div class="feedback" id="feedback-5"></div>
+          </div>
+        </div>
+        <!-- SLIDE 7 -->
+        <div class="slide">
+          <div class="text-box" id="text-6">
+            Surely all this heavy work must affect her health though? Noreen claims that it doesn’t, though her daughter-in-law mentions recent back trouble. ‘That had nothing to do with the tyres! It was when I was doing those stupid roof tiles,’ says Noreen. ‘We rebuilt the garage and added a first floor. It was quite a nice change to be a labourer for a while, actually.’
+          </div>
+          <div class="question-box">
+            <div class="question-title">When Noreen hurt her back, she:</div>
+            <div class="choices">
+              <div class="choice" data-answer="A">A. wasn’t able to go on with the building work.</div>
+              <div class="choice" data-answer="B">B. missed her usual job of repairing the tyres.</div>
+              <div class="choice" data-answer="C">C. blamed her injury on having to fix the tiles.</div>
+              <div class="choice" data-answer="D">D. enjoyed her temporary change of job.</div>
+            </div>
+            <div class="feedback" id="feedback-6"></div>
+          </div>
+        </div>
+        <!-- SLIDE 8 -->
+        <div class="slide">
+          <div class="text-box" id="text-7">
+            Noreen is a delightful woman, who clearly intends to be part of the business for a long time yet.
+          </div>
+          <div class="question-box">
+            <div class="question-title">Which phrase best describes the writer’s view of Noreen?</div>
+            <div class="choices">
+              <div class="choice" data-answer="A">A. a determined woman</div>
+              <div class="choice" data-answer="B">B. a demanding boss</div>
+              <div class="choice" data-answer="C">C. a loving grandmother</div>
+              <div class="choice" data-answer="D">D. a co-operative worker</div>
+            </div>
+            <div class="feedback" id="feedback-7"></div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="footer">
-      <span class="score" id="score-label">Score: 0/1</span>
+      <span class="score" id="score-label">Score: 0/8</span>
       <button class="footer-btn" id="next-btn">Next</button>
       <button class="footer-btn" id="show-btn">Show Answer</button>
       <button class="footer-btn" id="repeat-btn">Repeat</button>
@@ -226,72 +411,158 @@
     </div>
   </div>
   <script>
-    let answered = false;
-    let score = 0;
-    const scoreLabel = document.getElementById('score-label');
+    // Correct answers for each question
+    const correctAnswers = ["B", "C", "C", "D", "B", "C", "D", "A"];
+    const highlightRefs = [
+      "ref-0",
+      null, // Slide 2: overall chunk is reference
+      null, // Slide 3: overall chunk
+      null, // Slide 4: overall chunk
+      null, // Slide 5: overall chunk
+      null, // Slide 6: overall chunk
+      null, // Slide 7: overall chunk
+      null  // Slide 8: overall chunk
+    ];
+    // For some, entire box is referenced, so they have no highlightRef
+    let answered = Array(8).fill(false);
+    let scores = Array(8).fill(0);
+    let currentSlide = 0;
+    const row = document.getElementById('carousel-row');
+    const totalSlides = row.children.length;
+    let scoreLabel = document.getElementById('score-label');
+
     function updateScoreDisplay() {
-      scoreLabel.textContent = "Score: " + score + "/1";
+      const total = scores.reduce((a,b) => a+b,0);
+      scoreLabel.textContent = "Score: " + total + "/" + totalSlides;
     }
-    // Choices logic
+
+    function goToSlide(n) {
+      currentSlide = n;
+      row.style.transform = `translateX(-${100 * currentSlide}%)`;
+      updateNav();
+      document.getElementById('next-btn').disabled = (currentSlide === totalSlides - 1);
+      // Move slider thumb
+      updateThumb();
+    }
+
+    function updateNav() {
+      document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+      document.getElementById('repeat-btn').disabled = !answered[currentSlide];
+    }
+
+    document.getElementById('next-btn').onclick = function() {
+      if (currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+    };
+    document.getElementById('repeat-btn').onclick = function() {
+      // Allow repeat only if answered
+      answered[currentSlide] = false;
+      let textBox = document.getElementById(`text-${currentSlide}`);
+      let refSpan = document.getElementById(`ref-${currentSlide}`);
+      if (refSpan) refSpan.classList.remove('highlighted');
+      document.getElementById(`feedback-${currentSlide}`).textContent = '';
+      document.querySelectorAll('.slide')[currentSlide].querySelectorAll('.choice').forEach(e => e.classList.remove('selected'));
+      scores[currentSlide] = 0;
+      updateScoreDisplay();
+    };
+    document.getElementById('menu-btn').onclick = function() {
+      window.location.href = '../index.html';
+    };
+    document.getElementById('show-btn').onclick = function() {
+      // Show correct answer and highlight reference
+      const ci = currentSlide;
+      let correct = correctAnswers[ci];
+      document.querySelectorAll('.slide')[ci].querySelectorAll('.choice').forEach(e => {
+        if (e.getAttribute('data-answer') === correct) e.classList.add('selected');
+      });
+      let refSpan = document.getElementById(`ref-${ci}`);
+      if (refSpan) refSpan.classList.add('highlighted');
+      document.getElementById(`feedback-${ci}`).textContent = '';
+      scores[ci] = 1;
+      answered[ci] = true;
+      updateScoreDisplay();
+      updateNav();
+    };
+
     document.querySelectorAll('.choices').forEach((choiceBox, idx) => {
       choiceBox.onclick = function(e) {
         if (!e.target.classList.contains('choice')) return;
-        if (answered) return;
+        if (answered[idx]) return;
         choiceBox.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
         e.target.classList.add('selected');
         let answerClicked = e.target.getAttribute('data-answer');
         let feedbackDiv = document.getElementById(`feedback-${idx}`);
         let refSpan = document.getElementById(`ref-${idx}`);
-        if (idx === 0) {
-          if (answerClicked === "B") {
-            feedbackDiv.textContent = '';
-            refSpan.classList.add('highlighted');
-            score = 1;
-          } else {
-            feedbackDiv.textContent = "There is no reference in the text.";
-            refSpan.classList.remove('highlighted');
-            score = 0;
-          }
-          updateScoreDisplay();
-          answered = true;
+        if (answerClicked === correctAnswers[idx]) {
+          feedbackDiv.textContent = '';
+          if (refSpan) refSpan.classList.add('highlighted');
+          scores[idx] = 1;
+          answered[idx] = true;
+        } else {
+          feedbackDiv.textContent = "There is no reference in the text.";
+          if (refSpan) refSpan.classList.remove('highlighted');
+          scores[idx] = 0;
+          answered[idx] = true;
         }
+        updateScoreDisplay();
+        updateNav();
       };
     });
 
-    // Show Answer functionality
-    document.getElementById('show-btn').onclick = function() {
-      let refSpan = document.getElementById('ref-0');
-      refSpan.classList.add('highlighted');
-      document.querySelectorAll('.choice[data-answer="B"]').forEach(e => e.classList.add('selected'));
-      document.getElementById('feedback-0').textContent = '';
-      answered = true;
-      score = 1;
-      updateScoreDisplay();
-    };
+    // Slider bar logic
+    const sliderThumb = document.getElementById('sliderThumb');
+    const customSlider = document.getElementById('customSlider');
+    let dragging = false;
+    sliderThumb.addEventListener('mousedown', startDrag);
+    sliderThumb.addEventListener('touchstart', startDrag, {passive:false});
+    function startDrag(e) {
+      dragging = true;
+      e.preventDefault();
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('touchmove', drag, {passive:false});
+      document.addEventListener('mouseup', stopDrag);
+      document.addEventListener('touchend', stopDrag);
+    }
+    function drag(e) {
+      if (!dragging) return;
+      let clientX = e.touches ? e.touches.clientX : e.clientX;
+      const sliderRect = customSlider.getBoundingClientRect();
+      const thumbWidth = sliderThumb.offsetWidth;
+      let newLeft = clientX - sliderRect.left - (thumbWidth / 2);
+      const maxLeft = customSlider.clientWidth - thumbWidth;
+      newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+      const percentage = newLeft / maxLeft;
+      const targetSlide = Math.round(percentage * (totalSlides-1));
+      goToSlide(targetSlide);
+      updateThumb();
+    }
+    function stopDrag() {
+      dragging = false;
+      document.removeEventListener('mousemove', drag);
+      document.removeEventListener('touchmove', drag);
+      document.removeEventListener('mouseup', stopDrag);
+      document.removeEventListener('touchend', stopDrag);
+    }
+    function updateThumb() {
+      const sliderWidth = customSlider.clientWidth;
+      const thumbWidth = sliderThumb.offsetWidth;
+      const maxLeft = sliderWidth - thumbWidth;
+      const thumbLeft = (currentSlide / (totalSlides-1)) * maxLeft;
+      sliderThumb.style.left = `${thumbLeft}px`;
+    }
+    customSlider.addEventListener('click', function(e) {
+      if (e.target === sliderThumb) return;
+      const sliderRect = customSlider.getBoundingClientRect();
+      const clickX = e.clientX - sliderRect.left;
+      const sliderWidth = customSlider.clientWidth;
+      const percentage = clickX / sliderWidth;
+      const targetSlide = Math.round(percentage * (totalSlides-1));
+      goToSlide(targetSlide);
+      updateThumb();
+    });
 
-    // Repeat functionality
-    document.getElementById('repeat-btn').onclick = function() {
-      answered = false;
-      let refSpan = document.getElementById('ref-0');
-      refSpan.classList.remove('highlighted');
-      document.getElementById('feedback-0').textContent = '';
-      document.querySelectorAll('.choice').forEach(e => e.classList.remove('selected'));
-      score = 0;
-      updateScoreDisplay();
-    };
-
-    // Next button (demo: advances nowhere, placeholder for expansion)
-    document.getElementById('next-btn').onclick = function() {
-      alert('Demo: Add next question navigation.');
-    };
-
-    // Menu button
-    document.getElementById('menu-btn').onclick = function() {
-      window.location.href = '../index.html';
-    };
-
-    // Initial score setup
+    // Initialize at first slide
     updateScoreDisplay();
+    goToSlide(0);
   </script>
 </body>
 </html>
