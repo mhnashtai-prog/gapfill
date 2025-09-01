@@ -1,628 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FCE Cambridge - Use of English</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #8B4B9C 0%, #A855B8 25%, #B968C7 50%, #D8A8DB 75%, #E5C3E8 100%);
-            min-height: 100vh;
-            position: relative;
-            overflow-x: auto;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 10px;
-            position: relative;
-            min-height: 100vh;
-        }
-
-        .main-title {
-            text-align: center;
-            font-size: 1.8em;
-            font-weight: 700;
-            color: white;
-            margin: 15px 0 5px 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .sub-title {
-            text-align: center;
-            font-size: 1.1em;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-
-        .content-area {
-            position: relative;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .text-content {
-            background: rgba(255, 255, 255, 0.4);
-            padding: 6mm;
-            border-radius: 15px;
-            line-height: 1.6;
-            font-size: 0.75em;
-            color: #2d1b3d;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            position: relative;
-            width: fit-content;
-            max-width: 500px;
-            z-index: 5;
-        }
-
-        .instructions {
-            background: transparent;
-            padding: 0;
-            border-radius: 0;
-            margin-bottom: 15px;
-            font-weight: 500;
-            font-size: 0.9em;
-            color: #2d1b3d;
-            border: none;
-        }
-
-        .text-line {
-            margin-bottom: 8px;
-        }
-
-        .blank {
-            display: inline-block;
-            min-width: 50px;
-            height: 18px;
-            border-bottom: 1px solid #8B4B9C;
-            margin: 0 2px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.125em; /* 50% larger for numbers in brackets */
-            position: relative;
-            transition: all 0.3s ease;
-            cursor: default;
-            pointer-events: none;
-        }
-
-        .blank.filled {
-            background: rgba(139, 75, 156, 0.1);
-            border-radius: 3px;
-            border-bottom: 1px solid #4ade80;
-            font-weight: 900; /* Bold */
-            font-size: 1.125em; /* 50% larger than base */
-        }
-
-        .blank.correct {
-            background: #4ade80 !important;
-            color: white;
-        }
-
-        .blank.incorrect {
-            background: #f97316 !important;
-            color: white;
-        }
-
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
-            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.3), 
-                       -8px -8px 16px rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #2d1b3d;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            z-index: 10;
-        }
-
-        .circle-number {
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.6em;
-            font-weight: bold;
-            color: #2d1b3d;
-            z-index: 10;
-        }
-
-        .circle-input {
-            position: absolute;
-            top: 70%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px;
-            height: 24px;
-            border: none;
-            border-bottom: 1px solid #999;
-            background: transparent;
-            color: #2d1b3d;
-            text-align: center;
-            font-weight: bold;
-            font-size: 0.9em;
-            outline: none;
-            z-index: 15;
-        }
-
-        .circle-input:focus {
-            border-bottom: 2px solid #4ade80;
-        }
-
-        .circle:hover {
-            transform: translateY(-3px);
-            box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.4), 
-                       -12px -12px 24px rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.6);
-        }
-
-        .circle:active {
-            transform: translateY(-1px);
-            background: rgba(74, 222, 128, 0.3);
-        }
-
-        /* Standard size circles - downsized considerably */
-        .circle.standard {
-            width: 70px;
-            height: 70px;
-        }
-
-        /* Large size circles - downsized considerably */
-        .circle.large {
-            width: 85px;
-            height: 85px;
-        }
-
-        /* Reduced large size circles */
-        .circle.reduced-large {
-            width: 75px;
-            height: 75px;
-        }
-
-        /* Extra large size circles - downsized considerably */
-        .circle.extra-large-standard {
-            width: 80px;
-            height: 80px;
-        }
-
-        .circle.extra-large-large {
-            width: 90px;
-            height: 90px;
-        }
-
-        /* Repositioned circles with corrected data-number correlation */
-        .circle[data-number="1"] { top: 7px; left: 165px; }     /* Left top - moved 6mm left */
-        .circle[data-number="3"] { top: 169px; left: 210px; }   /* Left second - moved 5mm down */
-        .circle[data-number="5"] { top: 290px; left: 165px; }   /* Left third - moved 6mm left */
-        .circle[data-number="7"] { top: 452px; left: 210px; }   /* Left bottom - moved 5mm down */
-        .circle[data-number="2"] { top: 7px; left: 850px; }     /* Right top */
-        .circle[data-number="4"] { top: 127px; left: 850px; }   /* Right second - was 6 */
-        .circle[data-number="6"] { top: 294px; left: 850px; }   /* Right third - was 4 */
-        .circle[data-number="8"] { top: 414px; left: 850px; }   /* Right bottom */
-
-        .footer {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 20px;
-        }
-
-        .footer-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.65em;
-            background: rgba(255, 255, 255, 0.4);
-            color: #2d1b3d;
-            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.3), 
-                       -8px -8px 16px rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.4), 
-                       -12px -12px 24px rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.6);
-        }
-
-        .score {
-            font-size: 0.8em;
-            font-weight: bold;
-            color: white;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 12px;
-        }
-
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 8px;
-            }
-            
-            .circle.standard, .circle.large {
-                width: 60px;
-                height: 60px;
-            }
-
-            .circle.extra-large-standard, .circle.extra-large-large {
-                width: 75px;
-                height: 75px;
-            }
-            
-            .circle-number {
-                font-size: 1.1em;
-            }
-            
-            .circle-input {
-                width: 45px;
-                height: 22px;
-                font-size: 0.85em;
-                border: none;
-                border-bottom: 1px solid #999;
-                background: transparent;
-            }
-            
-            .circle-input:focus {
-                border-bottom: 2px solid #4ade80;
-            }
-            
-            .circle[data-number="1"] { left: 40px; }
-            .circle[data-number="2"] { left: 20px; }
-            .circle[data-number="3"] { left: 40px; }
-            .circle[data-number="4"] { left: 20px; }
-            .circle[data-number="5"] { left: 150px; }
-            .circle[data-number="6"] { left: 170px; }
-            .circle[data-number="7"] { left: 150px; }
-            .circle[data-number="8"] { left: 170px; }
-        }
-
-        @media (max-width: 480px) {
-            .circle.standard, .circle.large {
-                width: 50px;
-                height: 50px;
-            }
-
-            .circle.extra-large-standard, .circle.extra-large-large {
-                width: 65px;
-                height: 65px;
-            }
-            
-            .circle-number {
-                font-size: 1em;
-            }
-            
-            .circle-input {
-                width: 40px;
-                height: 20px;
-                font-size: 0.8em;
-                border: none;
-                border-bottom: 1px solid #999;
-                background: transparent;
-            }
-            
-            .circle-input:focus {
-                border-bottom: 2px solid #4ade80;
-            }
-            
-            .circle[data-number="1"] { left: 70px; }
-            .circle[data-number="2"] { left: 50px; }
-            .circle[data-number="3"] { left: 70px; }
-            .circle[data-number="4"] { left: 50px; }
-            .circle[data-number="5"] { left: 120px; }
-            .circle[data-number="6"] { left: 140px; }
-            .circle[data-number="7"] { left: 120px; }
-            .circle[data-number="8"] { left: 140px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>B2 First Part 5 Interactive</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Inter:wght@500&display=swap" rel="stylesheet">
+  <style>
+    html { box-sizing: border-box; }
+    *, *:before, *:after { box-sizing: inherit; }
+    body {
+      background: linear-gradient(135deg,
+        #2c5aa0 0%, #3b6bb5 15%, #4a7bc8 30%, #7a9fd9 45%,
+        #b8d3ea 60%, #e8c5d8 75%, #f0b7c9 85%, #f5a9ba 100%);
+      background-attachment: fixed;
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      min-height: 100vh;
+    }
+    .container {
+      width: 100vw;
+      min-height: 97vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      margin: 0 auto;
+    }
+    .title {
+      margin-top: 28px;
+      font-size: 2.2rem;
+      letter-spacing: 0.11em;
+      color: #fff;
+      text-align: center;
+      text-transform: uppercase;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.18);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .divider {
+      width: 54px;
+      height: 2px;
+      background: rgba(255,255,255,0.8);
+      margin: 0 auto 12px auto;
+      border-radius: 2px;
+      opacity: 0.91;
+    }
+    .carousel-container {
+      width: 96vw;
+      max-width: 650px;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 70px;
+    }
+    .slide {
+      width: 100%;
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 10px 0 0 0;
+    }
+    .text-box {
+      background: rgba(255,255,255,0.97);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 24px;
+      box-shadow: 0 6px 18px -4px rgba(0,0,0,0.085), inset 1px 1px 3px #fff2, inset -1px -1px 4px #0001;
+      width: 95%;
+      padding: 18px 16px 12px 16px;
+      font-size: 1.02rem;
+      margin-bottom: 13px;
+      color: #222;
+      font-family: 'Inter', Arial, sans-serif;
+      font-weight: 500;
+      transition: background 0.32s;
+      line-height: 1.54;
+    }
+    .highlighted {
+      background: rgba(147,197,96,0.6);
+      color: #181c2e;
+      font-family: inherit;
+      border-radius: 6px;
+      padding: 0 2px;
+      transition: background 0.23s;
+    }
+    .question-box {
+      background: rgba(255,255,255,0.95);
+      border: 1px solid rgba(255,255,255,0.19);
+      border-radius: 19px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07), inset 1px 1px 2px #fff2;
+      padding: 17px 12px 13px 12px;
+      width: 93%;
+      font-family: 'Inter', Arial, sans-serif;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+    .question-title {
+      font-size: 1.01em;
+      color: #2a3e66;
+      margin-bottom: 10px;
+      font-weight: 500;
+      font-family: inherit;
+    }
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .choice {
+      background: rgba(245, 249, 253, 0.97);
+      border: 1px solid #c3c2e3;
+      border-radius: 12px;
+      font-size: 0.98em;
+      color: #151c33;
+      font-weight: 500;
+      padding: 8px 13px;
+      cursor: pointer;
+      transition: background 0.17s, border 0.16s;
+      outline: none;
+      user-select: none;
+      font-family: inherit;
+    }
+    .choice:active, .choice.selected {
+      background: #daf5b0;
+      border: 2px solid #93C560;
+      color: #181c2e;
+    }
+    .feedback {
+      margin-top: 10px;
+      font-size: 0.96em;
+      font-weight: 500;
+      color: #c72c2c;
+      text-align: center;
+      font-family: inherit;
+      min-height: 22px;
+    }
+    /* Footer Styles */
+    .footer {
+      width: 100vw;
+      max-width: 660px;
+      margin: 0 auto;
+      background: rgba(68,68,68,0.92);
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 2px 14px 0 #2226;
+      font-size: 1.12rem;
+      color: #fff;
+      z-index: 100;
+      font-family: 'Inter', Arial, sans-serif;
+      padding: 7px 15px 7px 15px;
+    }
+    .footer .score { font-size: 1.05em; color: #e6f6dc; }
+    .footer .footer-btn {
+      background: #93C560;
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-size: 0.97em;
+      font-weight: 500;
+      padding: 6px 15px;
+      cursor: pointer;
+      margin: 0 2px;
+      transition: background 0.16s;
+    }
+    .footer .footer-btn:active { background: #bfd58e; }
+    .footer .footer-btn:disabled {
+      background: #b8d3ea;
+      color: #fff;
+      cursor: default;
+      opacity: 0.72;
+    }
+    @media (max-width: 600px) {
+      .container { min-height: 93vh; }
+      .carousel-container { max-width: 99vw; }
+      .slide { min-height: 230px; padding-top: 0px; }
+      .text-box, .question-box { font-size: 0.96rem; }
+      .footer { font-size: 0.97rem; padding: 6px 9px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="main-title">INTUITY</h1>
-        <h2 class="sub-title">Use of English Part 2</h2>
-
-        <div class="content-area">
-            <div class="text-content">
-                <div class="instructions">
-                    <strong>Instructions:</strong> Type answers in numbered circles, then click the circle to transfer to blanks.
-                </div>
-
-                <div class="text-line">
-                    <strong>Kieron Williamson is a very successful landscape painter. His paintings, which</strong>
-                </div>
-                <div class="text-line">
-                    <strong>mostly depict the peaceful countryside around his home village in</strong>
-                </div>
-                <div class="text-line">
-                    <strong>eastern England, sell very well. Perhaps this shouldn't <span class="blank" data-answer="come" data-number="1">(1)</span> as</strong>
-                </div>
-                <div class="text-line">
-                    <strong>that much of a surprise. It's a beautiful part of</strong>
-                </div>
-                <div class="text-line">
-                    <strong>the world, and landscape paintings are always popular.</strong>
-                </div>
-                
-                <div class="text-line">
-                    <strong>The strange thing about Kieron, however, <span class="blank" data-answer="is" data-number="2">(2)</span> that he</strong>
-                </div>
-                <div class="text-line">
-                    <strong>is only seven years old. At a recent exhibition of</strong>
-                </div>
-                <div class="text-line">
-                    <strong>his work, all the paintings were sold in half an</strong>
-                </div>
-                <div class="text-line">
-                    <strong>hour, some for £100,000 each. Kieron now has fans all</strong>
-                </div>
-                <div class="text-line">
-                    <strong>over the world and has gained the nickname 'the Mini-Monet'.</strong>
-                </div>
-                
-                <div class="text-line">
-                    <strong>What's even <span class="blank" data-answer="more" data-number="3">(3)</span> surprising is that Kieron doesn't</strong>
-                </div>
-                <div class="text-line">
-                    <strong>come from an artistic family, and only started painting two</strong>
-                </div>
-                <div class="text-line">
-                    <strong>years <span class="blank" data-answer="ago" data-number="4">(4)</span>. He first got inspiration <span class="blank" data-answer="from" data-number="5">(5)</span> some boats</strong>
-                </div>
-                <div class="text-line">
-                    <strong>he saw on holiday at the seaside. Kieron asked his</strong>
-                </div>
-                <div class="text-line">
-                    <strong>parents if they <span class="blank" data-answer="could" data-number="6">(6)</span> buy him a sketch pad</strong>
-                </div>
-                <div class="text-line">
-                    <strong>and pencils <span class="blank" data-answer="so" data-number="7">(7)</span> that he could draw them. Only</strong>
-                </div>
-                <div class="text-line">
-                    <strong>when they saw <span class="blank" data-answer="how" data-number="8">(8)</span> well he drew did they</strong>
-                </div>
-                <div class="text-line">
-                    <strong>realise that he was talented.</strong>
-                </div>
-            </div>
-
-            <!-- 8 Circles: circle 7 reduced, circles 1&5 moved left -->
-            <div class="circle extra-large-large" data-number="1">
-                <div class="circle-number">1</div>
-                <input type="text" class="circle-input" maxlength="10">
-            </div>
-            <div class="circle standard" data-number="3">
-                <div class="circle-number">3</div>
-                <input type="text" class="circle-input" maxlength="10">
-            </div>
-            <div class="circle extra-large-large" data-number="5">
-                <div class="circle-number">5</div>
-                <input type="text" class="circle-input" maxlength="10">
-            </div>
-            <div class="circle standard" data-number="7">
-                <div class="circle-number">7</div>
-                <input type="text" class="circle-input" maxlength="10">
-            </div>
-            <div class="circle standard" data-number="2">
-                <div class="circle-number">2</div>
-                <input type="text" class="circle-input" maxlength="10">
-            </div>
-            <div class="circle standard" data-number="6">
-                <div class="circle-number">6</div>
-                <input type="text" class="circle-input" maxlength="10">
-            </div>
-            <div class="circle extra-large-large" data-number="4">
-                <div class="circle-number">4</div>
-                <input type="text" class="circle-input" maxlength="10">
-            </div>
-            <div class="circle extra-large-large" data-number="8">
-                <div class="circle-number">8</div>
-                <input type="text" class="circle-input" maxlength="10">
-            </div>
+  <div class="container">
+    <div class="title">There's no stopping her!</div>
+    <div class="divider"></div>
+    <div class="carousel-container">
+      <div class="slide">
+        <div class="text-box" id="text-0">
+          Noreen Hannington, a sixty-three-year-old grandmother of five, arrives at the Tyre and Wheel Company in North London at 8 a.m. every morning. She puts on a greasy apron, rolls up her sleeves and gets ready for the day's work.<br>
+          The first customer pulls up in an old van. It has a flat tyre and the driver was lucky to make it to the garage. Noreen puts on her rubber gloves and gets down to work. She casually pulls off the wheel, swings it onto the work bench with one hand and takes it apart. ‘There’s your problem, sir,’ she announces, pointing at a tiny hole in the tyre. Right now, he couldn’t care less about that, since <span id="ref-0" class="">what he feels is more serious: a fast-decreasing sense of his own worth.</span> At least his mates haven’t come to witness him being rescued by a sweet-faced granny!
         </div>
-
-        <div class="footer">
-            <div class="footer-buttons">
-                <button class="btn" onclick="checkAnswers()">Check Answers</button>
-                <button class="btn" onclick="repeatExercise()">Repeat</button>
-                <button class="btn" onclick="nextExercise()">Next</button>
-                <button class="btn" onclick="returnToMenu()">Return to Menu</button>
-            </div>
-            <div class="score">Score: <span id="score">0/8</span></div>
+        <div class="question-box">
+          <div class="question-title">How does the van driver feel after getting help from Noreen?</div>
+          <div class="choices">
+            <div class="choice" data-answer="A">A. Impressed by the way she works</div>
+            <div class="choice" data-answer="B">B. Embarrassed that he needed it</div>
+            <div class="choice" data-answer="C">C. Relieved at finding it in time</div>
+            <div class="choice" data-answer="D">D. Unconvinced by her advice</div>
+          </div>
+          <div class="feedback" id="feedback-0"></div>
         </div>
+      </div>
+      <!-- Repeat .slide for questions 2-8, each with a relevant <span id="ref-N"> in text -->
     </div>
-
-    <script>
-        let isChecked = false;
-
-        // Add click functionality to circles
-        document.querySelectorAll('.circle').forEach(circle => {
-            circle.addEventListener('click', function() {
-                const number = this.dataset.number;
-                const input = this.querySelector('.circle-input');
-                const word = input.value.trim();
-                const blank = document.querySelector(`[data-number="${number}"]`);
-                
-                if (word) {
-                    // Transfer word to blank
-                    blank.textContent = `(${number}) ${word}`;
-                    blank.classList.add('filled');
-                    
-                    // Keep word in circle and make it bold
-                    input.style.fontWeight = 'bold';
-                    
-                    // Visual feedback
-                    this.style.background = 'rgba(74, 222, 128, 0.3)';
-                    setTimeout(() => {
-                        this.style.background = 'rgba(255, 255, 255, 0.4)';
-                    }, 300);
-                }
-                
-                updateScore();
-            });
-        });
-
-        // Make input text bold when typing
-        document.querySelectorAll('.circle-input').forEach(input => {
-            input.addEventListener('input', function() {
-                if (this.value.trim()) {
-                    this.style.fontWeight = 'bold';
-                } else {
-                    this.style.fontWeight = 'normal';
-                }
-            });
-        });
-
-        // Allow Enter key to trigger click
-        document.querySelectorAll('.circle-input').forEach(input => {
-            input.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    this.parentElement.click();
-                }
-            });
-        });
-
-        function updateScore() {
-            if (isChecked) return;
-            
-            let filled = 0;
-            document.querySelectorAll('.blank').forEach(blank => {
-                if (blank.classList.contains('filled')) filled++;
-            });
-            document.getElementById('score').textContent = `${filled}/8`;
+    <div class="footer">
+      <span class="score" id="score-label">Score: 0/1</span>
+      <button class="footer-btn" id="next-btn">Next</button>
+      <button class="footer-btn" id="show-btn">Show Answer</button>
+      <button class="footer-btn" id="repeat-btn">Repeat</button>
+      <button class="footer-btn" id="menu-btn">Menu</button>
+    </div>
+  </div>
+  <script>
+    let answered = false;
+    let score = 0;
+    const scoreLabel = document.getElementById('score-label');
+    function updateScoreDisplay() {
+      scoreLabel.textContent = "Score: " + score + "/1";
+    }
+    // Choices logic
+    document.querySelectorAll('.choices').forEach((choiceBox, idx) => {
+      choiceBox.onclick = function(e) {
+        if (!e.target.classList.contains('choice')) return;
+        if (answered) return;
+        choiceBox.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+        e.target.classList.add('selected');
+        let answerClicked = e.target.getAttribute('data-answer');
+        let feedbackDiv = document.getElementById(`feedback-${idx}`);
+        let refSpan = document.getElementById(`ref-${idx}`);
+        if (idx === 0) {
+          if (answerClicked === "B") {
+            feedbackDiv.textContent = '';
+            refSpan.classList.add('highlighted');
+            score = 1;
+          } else {
+            feedbackDiv.textContent = "There is no reference in the text.";
+            refSpan.classList.remove('highlighted');
+            score = 0;
+          }
+          updateScoreDisplay();
+          answered = true;
         }
+      };
+    });
 
-        function checkAnswers() {
-            isChecked = true;
-            let correct = 0;
-            
-            // Clear all previous answer states
-            document.querySelectorAll('.blank').forEach(blank => {
-                blank.classList.remove('correct', 'incorrect', 'filled');
-            });
-            
-            // Check each answer fresh
-            document.querySelectorAll('.blank').forEach(blank => {
-                const number = blank.dataset.number;
-                const correctAnswer = blank.dataset.answer;
-                const blankText = blank.textContent;
-                
-                // Extract user answer from blank text like "(1) come"
-                const userAnswer = blankText.replace(`(${number})`, '').trim();
-                
-                if (userAnswer && userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-                    blank.classList.add('correct');
-                    correct++;
-                } else if (userAnswer) {
-                    blank.classList.add('incorrect');
-                } else {
-                    // No answer provided
-                    blank.classList.add('incorrect');
-                }
-            });
-            
-            document.getElementById('score').textContent = `${correct}/8`;
-            
-            // Show result message
-            const percentage = (correct / 8) * 100;
-            let message = '';
-            if (percentage >= 80) {
-                message = '🎉 Excellent work!';
-            } else if (percentage >= 60) {
-                message = '👍 Good job!';
-            } else {
-                message = '📚 Keep practicing!';
-            }
-            
-            setTimeout(() => {
-                alert(`${message}\nYou scored ${correct} out of 8 (${percentage.toFixed(0)}%)`);
-            }, 500);
-        }
+    // Show Answer functionality
+    document.getElementById('show-btn').onclick = function() {
+      let refSpan = document.getElementById('ref-0');
+      refSpan.classList.add('highlighted');
+      document.querySelectorAll('.choice[data-answer="B"]').forEach(e => e.classList.add('selected'));
+      document.getElementById('feedback-0').textContent = '';
+      answered = true;
+      score = 1;
+      updateScoreDisplay();
+    };
 
-        function repeatExercise() {
-            // Reset everything
-            isChecked = false;
-            
-            document.querySelectorAll('.blank').forEach(blank => {
-                const number = blank.dataset.number;
-                blank.textContent = `(${number})`;
-                blank.classList.remove('filled', 'correct', 'incorrect');
-            });
-            
-            document.querySelectorAll('.circle-input').forEach(input => {
-                input.value = '';
-                input.style.fontWeight = 'normal';
-            });
-            
-            document.getElementById('score').textContent = '0/8';
-        }
+    // Repeat functionality
+    document.getElementById('repeat-btn').onclick = function() {
+      answered = false;
+      let refSpan = document.getElementById('ref-0');
+      refSpan.classList.remove('highlighted');
+      document.getElementById('feedback-0').textContent = '';
+      document.querySelectorAll('.choice').forEach(e => e.classList.remove('selected'));
+      score = 0;
+      updateScoreDisplay();
+    };
 
-        function nextExercise() {
-            alert('Next exercise would load here in a real application.');
-        }
+    // Next button (demo: advances nowhere, placeholder for expansion)
+    document.getElementById('next-btn').onclick = function() {
+      alert('Demo: Add next question navigation.');
+    };
 
-        function returnToMenu() {
-            alert('Returning to main menu...');
-        }
+    // Menu button
+    document.getElementById('menu-btn').onclick = function() {
+      window.location.href = '../index.html';
+    };
 
-        // Add keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Tab') {
-                e.preventDefault();
-                const inputs = Array.from(document.querySelectorAll('.circle-input'));
-                const currentIndex = inputs.findIndex(input => input === document.activeElement);
-                
-                if (e.shiftKey) {
-                    // Shift+Tab - go to previous
-                    const prevIndex = currentIndex > 0 ? currentIndex - 1 : inputs.length - 1;
-                    inputs[prevIndex].focus();
-                } else {
-                    // Tab - go to next
-                    const nextIndex = currentIndex < inputs.length - 1 ? currentIndex + 1 : 0;
-                    inputs[nextIndex].focus();
-                }
-            }
-        });
-
-        // Focus first input on load
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('.circle-input').focus();
-        });
-    </script>
+    // Initial score setup
+    updateScoreDisplay();
+  </script>
 </body>
 </html>
